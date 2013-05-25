@@ -3,23 +3,13 @@ package com.berneugen.WebSiteGuardian.Service;
 import android.app.Service;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.TextView;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDBHelper;
-import com.berneugen.WebSiteGuardian.R;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
