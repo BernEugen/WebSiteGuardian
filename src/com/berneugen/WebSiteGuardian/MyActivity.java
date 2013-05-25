@@ -55,6 +55,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
         if (c.moveToLast()) {
             display.setText("Status " + c.getString(c.getColumnIndex("status")));
         }
+        dbHelper.close();
     }
 }
 
