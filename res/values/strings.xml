@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WebSiteGuardian</string>
+
+    <string name="buttonStart">Start</string>
+    <string name="buttonStop">Stop</string>
+    <string name="buttonRefresh">Refresh</string>
+
+</resources>
