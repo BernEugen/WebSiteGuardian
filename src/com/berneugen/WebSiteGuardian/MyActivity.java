@@ -11,9 +11,6 @@ import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDBHelper;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 
 public class MyActivity extends Activity implements View.OnClickListener {
-    /**
-     * Called when the activity is first created.
-     */
 
     private TextView display;
     private WebSiteDBHelper dbHelper;
