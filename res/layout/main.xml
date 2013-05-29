@@ -1,23 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.app.FragmentTabHost
+              xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:padding="5dp">
-
-    <TextView
-            android:id="@+id/display"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/background_light"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="5dp"/>
+              android:padding="5dp"
+              android:id="@+id/tabhost">
 
     <LinearLayout
-            android:id="@+id/buttonSection"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
+
+            <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </TabWidget>
+
+        <FrameLayout
+                android:id="@+id/realtabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/wrapperButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom">
+
+        <LinearLayout
+                android:id="@+id/buttonSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <Button
                     android:id="@+id/start"
@@ -37,16 +56,17 @@
                     android:onClick="onClick">
             </Button>
 
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonRefresh"
+                android:onClick="onClick">
+        </Button>
+
     </LinearLayout>
 
-    <Button
-            android:id="@+id/refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonRefresh"
-            android:onClick="onClick">
-    </Button>
-
-
-</LinearLayout>
+</android.support.v4.app.FragmentTabHost>
 

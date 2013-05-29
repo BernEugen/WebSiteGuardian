@@ -1,28 +1,40 @@
 package com.berneugen.WebSiteGuardian;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDBHelper;
+import com.berneugen.WebSiteGuardian.Fragments.AllStatusFragment;
+import com.berneugen.WebSiteGuardian.Fragments.FailuresFragment;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 
-public class MyActivity extends Activity implements View.OnClickListener {
+public class MyActivity extends FragmentActivity implements View.OnClickListener {
 
-    private TextView display;
     private WebSiteDBHelper dbHelper;
     private SQLiteDatabase db;
     private Cursor c;
+    private FragmentTabHost tabHost;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        display = (TextView) findViewById(R.id.display);
+        tabHost = (FragmentTabHost) findViewById(R.id.tabhost);
+        tabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+        tabHost.addTab(tabHost.newTabSpec("allStatus").setIndicator("All Status"),
+                AllStatusFragment.class, null);
+
+        tabHost.addTab(tabHost.newTabSpec("failures").setIndicator("Failures"),
+                FailuresFragment.class, null);
+
         dbHelper = new WebSiteDBHelper(this);
         showStatus();
     }
@@ -50,7 +62,8 @@ public class MyActivity extends Activity implements View.OnClickListener {
         db = dbHelper.getWritableDatabase();
         c = db.query("dbTable", null, null, null, null, null, null);
         if (c.moveToLast()) {
-            display.setText("Status " + c.getString(c.getColumnIndex("status")));
+//            display.setText("Status " + c.getString(c.getColumnIndex("status")));
+            Toast.makeText(this, "Status " + c.getString(c.getColumnIndex("status")), Toast.LENGTH_SHORT).show();
         }
         dbHelper.close();
     }
