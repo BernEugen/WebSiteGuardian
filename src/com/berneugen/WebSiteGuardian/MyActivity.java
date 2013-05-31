@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDBHelper;
 import com.berneugen.WebSiteGuardian.Fragments.AllStatusFragment;
@@ -36,7 +35,6 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
                 FailuresFragment.class, null);
 
         dbHelper = new WebSiteDBHelper(this);
-        showStatus();
     }
 
     @Override
@@ -55,15 +53,19 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
             case R.id.refresh:
                 showStatus();
                 break;
+
+            case R.id.enterUrl:
+                Intent intent = new Intent(this, PreferencesActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
     public void showStatus() {
         db = dbHelper.getWritableDatabase();
-        c = db.query("dbTable", null, null, null, null, null, null);
+        c = db.query(WebSiteDBHelper.TABLE_NAME, null, null, null, null, null, null);
         if (c.moveToLast()) {
-//            display.setText("Status " + c.getString(c.getColumnIndex("status")));
-            Toast.makeText(this, "Status " + c.getString(c.getColumnIndex("status")), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Status " + c.getString(c.getColumnIndex(WebSiteDBHelper.STATUS_COLUMN)), Toast.LENGTH_SHORT).show();
         }
         dbHelper.close();
     }

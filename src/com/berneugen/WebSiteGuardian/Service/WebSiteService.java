@@ -64,8 +64,8 @@ public class WebSiteService extends Service {
         int randNum = random.nextInt(2);
 
         db = dbHelper.getWritableDatabase();
-        cv.put("status", statusList[randNum]);
-        db.insert("dbTable", null, cv);
+        cv.put(WebSiteDBHelper.STATUS_COLUMN, statusList[randNum]);
+        db.insert(WebSiteDBHelper.TABLE_NAME, null, cv);
     }
 }
 

@@ -58,13 +58,31 @@
 
         </LinearLayout>
 
-        <Button
-                android:id="@+id/refresh"
+        <LinearLayout
+                android:id="@+id/buttonSection2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/buttonRefresh"
-                android:onClick="onClick">
-        </Button>
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/enterUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buttonUrl"
+                    android:layout_weight="1"
+                    android:onClick="onClick">
+            </Button>
+
+            <Button
+                    android:id="@+id/refresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buttonRefresh"
+                    android:layout_weight="1"
+                    android:onClick="onClick">
+            </Button>
+
+        </LinearLayout>
 
     </LinearLayout>
 

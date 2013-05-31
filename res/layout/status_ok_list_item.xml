@@ -5,10 +5,17 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ListView
-            android:id="@id/android:list"
+    <!--<ImageView-->
+            <!--android:id="@+id/statusOkImage"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/green_check">-->
+    <!--</ImageView>-->
+
+    <TextView
+            android:id="@+id/statusOk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-    </ListView>
+    </TextView>
 
 </LinearLayout>

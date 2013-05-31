@@ -1,6 +1,7 @@
 package com.berneugen.WebSiteGuardian.DBHelper;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -12,16 +13,19 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class WebSiteDBHelper extends SQLiteOpenHelper {
 
-    public WebSiteDBHelper(Context context) {
-        super(context, "WebSiteDB", null, 1);
+    public static final String DB_NAME = "WebSiteDB.db";
+    public static final String TABLE_NAME = "webSiteTable";
+    public static final String STATUS_COLUMN = "status";
 
+    public WebSiteDBHelper(Context context) {
+        super(context, DB_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table dbTable ("
-                + "id integer primary key autoincrement,"
-                + "status text" + ");");
+        db.execSQL("create table " + TABLE_NAME + " ("
+                + "id integer primary key autoincrement, "
+                + STATUS_COLUMN + " text" + ");");
     }
 
     @Override
