@@ -1,11 +1,9 @@
 package com.berneugen.WebSiteGuardian.Service;
 
 import android.app.Service;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
-import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDBHelper;
+import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
 
 import java.util.Random;
 import java.util.Timer;
@@ -21,17 +19,14 @@ public class WebSiteService extends Service {
 
     private String[] statusList = {"200 OK", "500 ERROR"};
     private Timer timer;
-    private WebSiteDBHelper dbHelper;
-    private ContentValues cv;
-    private SQLiteDatabase db;
     private Random random = new Random();
+    private WebSiteDB webSiteDB;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        dbHelper = new WebSiteDBHelper(this);
         timer = new Timer();
-        cv = new ContentValues();
+        webSiteDB = new WebSiteDB(this);
     }
 
     @Override
@@ -51,7 +46,6 @@ public class WebSiteService extends Service {
     public void onDestroy() {
         super.onDestroy();
         timer.cancel();
-        dbHelper.close();
     }
 
     @Override
@@ -60,12 +54,8 @@ public class WebSiteService extends Service {
     }
 
     public void putData() {
-
         int randNum = random.nextInt(2);
-
-        db = dbHelper.getWritableDatabase();
-        cv.put(WebSiteDBHelper.STATUS_COLUMN, statusList[randNum]);
-        db.insert(WebSiteDBHelper.TABLE_NAME, null, cv);
+        webSiteDB.insertData(statusList[randNum]);
     }
 }
 

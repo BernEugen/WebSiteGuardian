@@ -2,23 +2,21 @@ package com.berneugen.WebSiteGuardian;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.widget.Toast;
-import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDBHelper;
+import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
 import com.berneugen.WebSiteGuardian.Fragments.AllStatusFragment;
 import com.berneugen.WebSiteGuardian.Fragments.FailuresFragment;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 
 public class MyActivity extends FragmentActivity implements View.OnClickListener {
 
-    private WebSiteDBHelper dbHelper;
-    private SQLiteDatabase db;
     private Cursor c;
     private FragmentTabHost tabHost;
+    private WebSiteDB webSiteDB;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
         tabHost.addTab(tabHost.newTabSpec("failures").setIndicator("Failures"),
                 FailuresFragment.class, null);
 
-        dbHelper = new WebSiteDBHelper(this);
+        webSiteDB = new WebSiteDB(this);
     }
 
     @Override
@@ -62,12 +60,10 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
     }
 
     public void showStatus() {
-        db = dbHelper.getWritableDatabase();
-        c = db.query(WebSiteDBHelper.TABLE_NAME, null, null, null, null, null, null);
+        c = webSiteDB.getAllData();
         if (c.moveToLast()) {
-            Toast.makeText(this, "Status " + c.getString(c.getColumnIndex(WebSiteDBHelper.STATUS_COLUMN)), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Status " + c.getString(c.getColumnIndex(WebSiteDB.TABLE_COLUMN_NAME)), Toast.LENGTH_SHORT).show();
         }
-        dbHelper.close();
     }
 }
 
