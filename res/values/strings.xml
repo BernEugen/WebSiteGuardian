@@ -6,5 +6,6 @@
     <string name="buttonStop">Stop</string>
     <string name="buttonRefresh">Refresh</string>
     <string name="buttonUrl">Enter URL</string>
+    <string name="saveUrl">Save URL</string>
 
 </resources>
