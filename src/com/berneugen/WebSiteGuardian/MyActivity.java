@@ -1,22 +1,23 @@
 package com.berneugen.WebSiteGuardian;
 
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
 import com.berneugen.WebSiteGuardian.Fragments.AllStatusFragment;
 import com.berneugen.WebSiteGuardian.Fragments.FailuresFragment;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 
 public class MyActivity extends FragmentActivity implements View.OnClickListener {
 
-    private Cursor c;
     private FragmentTabHost tabHost;
-    private WebSiteDB webSiteDB;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,30 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
 
         tabHost.addTab(tabHost.newTabSpec("failures").setIndicator("Failures"),
                 FailuresFragment.class, null);
-
-        webSiteDB = new WebSiteDB(this);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_history:
+
+                break;
+            case R.id.menu_availability:
+                Intent intent = new Intent(this, AvailabilityActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return true;
+    }
+
+
 
     @Override
     public void onClick(View v) {
@@ -49,20 +71,16 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
                 break;
 
             case R.id.refresh:
-                showStatus();
+                String prefsKey = getApplicationContext().getString(R.string.pref_key);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String url = preferences.getString(prefsKey, "");
+                Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.enterUrl:
                 Intent intent = new Intent(this, PreferencesActivity.class);
                 startActivity(intent);
                 break;
-        }
-    }
-
-    public void showStatus() {
-        c = webSiteDB.getAllData();
-        if (c.moveToLast()) {
-            Toast.makeText(this, "Status " + c.getString(c.getColumnIndex(WebSiteDB.TABLE_COLUMN_NAME)), Toast.LENGTH_SHORT).show();
         }
     }
 }

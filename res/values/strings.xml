@@ -8,4 +8,11 @@
     <string name="buttonUrl">Enter URL</string>
     <string name="saveUrl">Save URL</string>
 
+    <string name="pref_title">Enter URL</string>
+    <string name="pref_key">URL Address</string>
+    <string name="pref_summary">Check site for availability</string>
+
+    <string name="action_bar_history">History</string>
+    <string name="action_bar_availability">Availability</string>
+
 </resources>

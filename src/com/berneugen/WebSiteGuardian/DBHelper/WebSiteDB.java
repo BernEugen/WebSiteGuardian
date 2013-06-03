@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Eugen
@@ -14,12 +16,14 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class WebSiteDB {
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "site_check.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "site3.db";
 
-    private static final String TABLE_NAME = "site_table";
-    private static final String TABLE_COLUMN_ID = "_id";
-    public static final String TABLE_COLUMN_NAME = "status";
+    public static final String TABLE_NAME = "siteStatuses";
+    public static final String ID_COLUMN = "_id";
+    public static final String HOST_COLUMN = "host";
+    public static final String STATUS_COLUMN = "status";
+    public static final String DATE_COLUMN = "date";
 
     private DBHelper openHelper;
     private SQLiteDatabase database;
@@ -29,35 +33,44 @@ public class WebSiteDB {
         database = openHelper.getWritableDatabase();
     }
 
+    public SQLiteDatabase connectToDB() {
+        return openHelper.getWritableDatabase();
+    }
+
     public Cursor getAllData() {
         String buildSQL = "SELECT * FROM " + TABLE_NAME;
         return database.rawQuery(buildSQL, null);
     }
 
-    public void insertData (String status) {
+    public Cursor getFailedData() {
+        return null;
+    }
+
+    public void insertData (String host, int status) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TABLE_COLUMN_NAME, status);
+        contentValues.put(HOST_COLUMN, host);
+        contentValues.put(STATUS_COLUMN, status);
         database.insert(TABLE_NAME, null, contentValues);
     }
 
-    private class DBHelper extends SQLiteOpenHelper {
+        private class DBHelper extends SQLiteOpenHelper {
 
-        public DBHelper(Context aContext) {
-            super(aContext, DATABASE_NAME, null, DATABASE_VERSION);
-        }
+            public DBHelper(Context aContext) {
+                super(aContext, DATABASE_NAME, null, DATABASE_VERSION);
+            }
 
-        @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            String buildSQL = "CREATE TABLE " + TABLE_NAME + "( " + TABLE_COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                    TABLE_COLUMN_NAME + " TEXT)";
-            sqLiteDatabase.execSQL(buildSQL);
-        }
+            @Override
+            public void onCreate(SQLiteDatabase sqLiteDatabase) {
+                String buildSQL = "CREATE TABLE " + TABLE_NAME + "( " + ID_COLUMN + " INTEGER PRIMARY KEY, " +
+                        HOST_COLUMN + " TEXT, " + STATUS_COLUMN + " INTEGER, " + DATE_COLUMN + " TEXT)";
+                sqLiteDatabase.execSQL(buildSQL);
+            }
 
-        @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-            String buildSQL = "DROP TABLE IF EXISTS " + TABLE_NAME;
-            sqLiteDatabase.execSQL(buildSQL);
-            onCreate(sqLiteDatabase);
+            @Override
+            public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+                String buildSQL = "DROP TABLE IF EXISTS " + TABLE_NAME;
+                sqLiteDatabase.execSQL(buildSQL);
+                onCreate(sqLiteDatabase);
+            }
         }
-    }
 }
