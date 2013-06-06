@@ -15,4 +15,7 @@
     <string name="action_bar_history">History</string>
     <string name="action_bar_availability">Availability</string>
 
+    <string name="chart_pie_online">OnLine</string>
+    <string name="chart_pie_offline">OffLine</string>
+
 </resources>

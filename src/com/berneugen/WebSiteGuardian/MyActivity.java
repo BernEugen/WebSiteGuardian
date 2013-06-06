@@ -1,18 +1,16 @@
 package com.berneugen.WebSiteGuardian;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import com.berneugen.WebSiteGuardian.Fragments.AllStatusFragment;
 import com.berneugen.WebSiteGuardian.Fragments.FailuresFragment;
+import com.berneugen.WebSiteGuardian.PieChart.PieChartActivity;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 
 public class MyActivity extends FragmentActivity implements View.OnClickListener {
@@ -44,18 +42,17 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_history:
 
+            case R.id.menu_history:
                 break;
+
             case R.id.menu_availability:
-                Intent intent = new Intent(this, AvailabilityActivity.class);
+                Intent intent = new Intent(this, PieChartActivity.class);
                 startActivity(intent);
                 break;
         }
         return true;
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -70,16 +67,8 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
                 stopService(new Intent(this, WebSiteService.class));
                 break;
 
-            case R.id.refresh:
-                String prefsKey = getApplicationContext().getString(R.string.pref_key);
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                String url = preferences.getString(prefsKey, "");
-                Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
-                break;
-
             case R.id.enterUrl:
-                Intent intent = new Intent(this, PreferencesActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, PreferencesActivity.class));
                 break;
         }
     }

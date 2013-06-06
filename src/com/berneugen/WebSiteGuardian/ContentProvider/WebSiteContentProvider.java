@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
 
@@ -36,16 +37,18 @@ public class WebSiteContentProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        if (URI_MATCHER.match(uri) == STATUS_CODE) {
-            return webSiteDB.getAllData();
-        } else {
-            return null;
-        }
+
+        SQLiteDatabase db = webSiteDB.connectToDB();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(WebSiteDB.TABLE_NAME);
+        Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, null);
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return cursor;
     }
 
     @Override
     public String getType(Uri uri) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
@@ -66,11 +69,11 @@ public class WebSiteContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return 0;
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return 0;
     }
 }

@@ -34,16 +34,15 @@ import java.util.TimerTask;
 public class WebSiteService extends Service {
 
     private Timer timer;
-    private WebSiteDB webSiteDB;
     private String url;
     private Handler uiHandler;
+    public static final int OK_STATUS = 200;
     public static final int FAILED_STATUS = 500;
 
     @Override
     public void onCreate() {
         super.onCreate();
         timer = new Timer();
-        webSiteDB = new WebSiteDB(this);
         url = getUrlFromPreference();
         uiHandler = new Handler();
     }
@@ -68,7 +67,7 @@ public class WebSiteService extends Service {
                     return;
                 }
             }
-        }, 0L, 10000L);
+        }, 0L, 3000L);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -88,6 +87,7 @@ public class WebSiteService extends Service {
         ContentValues contentValues = new ContentValues();
         contentValues.put(WebSiteDB.HOST_COLUMN, url);
         contentValues.put(WebSiteDB.STATUS_COLUMN, statusConnection);
+        contentValues.put(WebSiteDB.DATE_COLUMN, new Date().getTime());
         getContentResolver().insert(WebSiteContentProvider.CONTENT_URI, contentValues);
     }
 
@@ -104,10 +104,8 @@ public class WebSiteService extends Service {
     }
 
     public int checkSiteAvailability(String url) {
-
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
-
         HttpResponse response;
         try {
             response = client.execute(request);
@@ -120,7 +118,6 @@ public class WebSiteService extends Service {
         int statusCode = response.getStatusLine().getStatusCode();
         return statusCode;
     }
-
 }
 
 

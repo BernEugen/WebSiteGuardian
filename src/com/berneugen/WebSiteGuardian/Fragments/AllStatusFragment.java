@@ -1,15 +1,11 @@
 package com.berneugen.WebSiteGuardian.Fragments;
 
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.berneugen.WebSiteGuardian.ContentProvider.WebSiteContentProvider;
 import com.berneugen.WebSiteGuardian.CursorAdapterImpl.FragmentCursorAdapter;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
@@ -23,8 +19,8 @@ import com.berneugen.WebSiteGuardian.R;
  */
 public class AllStatusFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 
-    private static final String[] FROM = {WebSiteDB.HOST_COLUMN, WebSiteDB.DATE_COLUMN};
-    private static final int[] TO = {R.id.status_host, R.id.status_date};
+    private static final String[] FROM = {WebSiteDB.HOST_COLUMN};
+    private static final int[] TO = {R.id.status_host};
     private FragmentCursorAdapter fragmentCursorAdapter;
 
     @Override
@@ -48,6 +44,7 @@ public class AllStatusFragment extends ListFragment implements LoaderCallbacks<C
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         fragmentCursorAdapter.swapCursor(cursor);
+        fragmentCursorAdapter.notifyDataSetChanged();
     }
 
     @Override
