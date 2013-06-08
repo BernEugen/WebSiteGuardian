@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import com.berneugen.WebSiteGuardian.ContentProvider.WebSiteContentProvider;

@@ -2,6 +2,7 @@ package com.berneugen.WebSiteGuardian.CursorAdapterImpl;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
