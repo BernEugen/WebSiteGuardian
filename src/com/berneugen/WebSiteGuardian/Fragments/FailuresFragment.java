@@ -14,7 +14,7 @@ import com.berneugen.WebSiteGuardian.Service.WebSiteService;
  * Date: 29.05.13
  * Time: 23:10
  */
-public class FailuresFragment extends AbstractStatus {
+public class FailuresFragment extends BaseStatus {
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

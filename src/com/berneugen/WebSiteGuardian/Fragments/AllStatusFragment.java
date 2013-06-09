@@ -12,7 +12,7 @@ import com.berneugen.WebSiteGuardian.ContentProvider.WebSiteContentProvider;
  * Date: 29.05.13
  * Time: 22:58
  */
-public class AllStatusFragment extends AbstractStatus {
+public class AllStatusFragment extends BaseStatus {
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
