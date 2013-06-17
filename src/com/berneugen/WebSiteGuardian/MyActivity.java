@@ -1,5 +1,7 @@
 package com.berneugen.WebSiteGuardian;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -8,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import com.berneugen.WebSiteGuardian.Fragments.AllStatusFragment;
 import com.berneugen.WebSiteGuardian.Fragments.FailuresFragment;
 import com.berneugen.WebSiteGuardian.PieChart.PieChartActivity;
@@ -17,6 +18,8 @@ import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 public class MyActivity extends FragmentActivity implements View.OnClickListener {
 
     private FragmentTabHost tabHost;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,10 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
 
         tabHost.addTab(tabHost.newTabSpec("failures").setIndicator("Failures"),
                 FailuresFragment.class, null);
+
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this, WebSiteService.class);
+        pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     @Override
@@ -61,11 +68,11 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
         switch (v.getId()) {
 
             case R.id.start:
-                startService(new Intent(this, WebSiteService.class));
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 5, pendingIntent);
                 break;
 
             case R.id.stop:
-                stopService(new Intent(this, WebSiteService.class));
+                alarmManager.cancel(pendingIntent);
                 break;
 
             case R.id.enterUrl:

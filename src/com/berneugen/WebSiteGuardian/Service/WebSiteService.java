@@ -7,23 +7,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 import com.berneugen.WebSiteGuardian.ContentProvider.WebSiteContentProvider;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
 import com.berneugen.WebSiteGuardian.R;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,49 +28,27 @@ import java.util.TimerTask;
  */
 public class WebSiteService extends Service {
 
-    private Timer timer;
     private String url;
-    private Handler uiHandler;
+    private TaskHelper taskHelper;
     public static final int OK_STATUS = 200;
     public static final int FAILED_STATUS = 500;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        timer = new Timer();
         url = getUrlFromPreference();
-        uiHandler = new Handler();
+        taskHelper = new TaskHelper();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        timer.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                if (isInternetConnected()) {
-                    int statusConnection = checkSiteAvailability(url);
-                    putDataToDB(statusConnection);
-                } else {
-                    uiHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    return;
-                }
-            }
-        }, 0L, 3000L);
-
+        taskHelper.execute();
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
     }
 
     @Override
@@ -109,41 +82,42 @@ public class WebSiteService extends Service {
         HttpResponse response;
         try {
             response = client.execute(request);
-        } catch (ClientProtocolException ex) {
-            return FAILED_STATUS;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             return FAILED_STATUS;
         }
 
         int statusCode = response.getStatusLine().getStatusCode();
         return statusCode;
     }
+
+    private class TaskHelper extends AsyncTask<Void, Void , Void > {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (isInternetConnected()) {
+                int statusConnection = checkSiteAvailability(url);
+                putDataToDB(statusConnection);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+            super.onPostExecute(params);
+            stopSelf();
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

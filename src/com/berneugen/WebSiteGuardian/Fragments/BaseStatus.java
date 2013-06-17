@@ -1,5 +1,7 @@
 package com.berneugen.WebSiteGuardian.Fragments;
 
+import android.app.IntentService;
+import android.content.AsyncTaskLoader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -28,11 +30,6 @@ public class BaseStatus extends ListFragment implements LoaderCallbacks<Cursor> 
         super.onCreate(savedInstanceState);
         fragmentCursorAdapter = new FragmentCursorAdapter(getActivity().getApplicationContext(), R.layout.status_list_item, null, FROM, TO, 0);
         setListAdapter(fragmentCursorAdapter);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(0, null, this);
     }
 
