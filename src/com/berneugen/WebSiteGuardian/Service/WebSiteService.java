@@ -68,8 +68,6 @@ public class WebSiteService extends Service {
 
     private class TaskHelper extends AsyncTask<Void, Void , Void > {
 
-        private int statusConnection;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -78,7 +76,7 @@ public class WebSiteService extends Service {
         @Override
         protected Void doInBackground(Void... params) {
             InternetClient internetClient = new InternetClient(getApplicationContext());
-            statusConnection = internetClient.checkSiteAvailability(url);
+            int statusConnection = internetClient.checkSiteAvailability(url);
             putDataToDB(statusConnection);
             return null;
         }
