@@ -6,6 +6,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import com.berneugen.WebSiteGuardian.ContentProvider.WebSiteContentProvider;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
+import com.berneugen.WebSiteGuardian.Model.StatusesModel;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 
 /**
@@ -18,7 +19,7 @@ public class FailuresFragment extends BaseStatus {
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] failStatus = new String[] {String.valueOf(WebSiteService.FAILED_STATUS)};
+        String[] failStatus = new String[] {String .valueOf(StatusesModel.FAILED_STATUS)};
         return new CursorLoader(getActivity().getApplicationContext(), WebSiteContentProvider.CONTENT_URI, null,
                 WebSiteDB.STATUS_COLUMN + " = ?", failStatus, null);
     }

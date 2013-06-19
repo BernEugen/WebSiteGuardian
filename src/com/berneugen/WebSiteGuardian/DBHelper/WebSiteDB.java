@@ -4,16 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Eugen
- * Date: 31.05.13
- * Time: 20:24
- */
 public class WebSiteDB {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "webSiteDB6.db";
+    public static final String DATABASE_NAME = "webSiteDB22.db";
 
     public static final String TABLE_NAME = "siteStatuses";
     public static final String ID_COLUMN = "_id";

@@ -9,6 +9,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import com.berneugen.WebSiteGuardian.ContentProvider.WebSiteContentProvider;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
+import com.berneugen.WebSiteGuardian.Model.StatusesModel;
 import com.berneugen.WebSiteGuardian.R;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
 import org.achartengine.ChartFactory;
@@ -39,8 +40,8 @@ public class PieChartActivity extends Activity {
         categorySeries = new CategorySeries("");
         renderer = new DefaultRenderer();
 
-        int okStatusCount = getStatusesCount(WebSiteService.OK_STATUS);
-        int failedStatusCount = getStatusesCount(WebSiteService.FAILED_STATUS);
+        int okStatusCount = getStatusesCount(StatusesModel.OK_STATUS);
+        int failedStatusCount = getStatusesCount(StatusesModel.FAILED_STATUS);
 
         setVisualStyle();
         drawPie(okStatusCount, failedStatusCount);

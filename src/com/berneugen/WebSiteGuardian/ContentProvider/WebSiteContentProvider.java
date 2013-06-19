@@ -11,12 +11,6 @@ import android.net.Uri;
 import android.os.Parcel;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Eugen
- * Date: 31.05.13
- * Time: 21:11
- */
 public class WebSiteContentProvider extends ContentProvider {
 
     public static final String PROVIDER_NAME = "com.berneugen.websiteguardian.contentprovider.websitecontentprovider";

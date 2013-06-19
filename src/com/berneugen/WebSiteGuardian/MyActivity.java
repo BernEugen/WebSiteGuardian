@@ -12,14 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import com.berneugen.WebSiteGuardian.Fragments.AllStatusFragment;
 import com.berneugen.WebSiteGuardian.Fragments.FailuresFragment;
+import com.berneugen.WebSiteGuardian.Model.StatusesModel;
 import com.berneugen.WebSiteGuardian.PieChart.PieChartActivity;
 import com.berneugen.WebSiteGuardian.Service.WebSiteService;
+
+import java.util.Calendar;
 
 public class MyActivity extends FragmentActivity implements View.OnClickListener {
 
     private FragmentTabHost tabHost;
-    private AlarmManager alarmManager;
+    private Intent intent;
     private PendingIntent pendingIntent;
+    private AlarmManager alarmManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,9 +39,10 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
         tabHost.addTab(tabHost.newTabSpec("failures").setIndicator("Failures"),
                 FailuresFragment.class, null);
 
+
+        intent = new Intent(this, WebSiteService.class);
+        pendingIntent = PendingIntent.getService(this, 0, intent, 0);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(this, WebSiteService.class);
-        pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     @Override
@@ -68,7 +73,8 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
         switch (v.getId()) {
 
             case R.id.start:
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 5, pendingIntent);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+                        StatusesModel.TIMEOUT_HTTP_CLIENT, pendingIntent);
                 break;
 
             case R.id.stop:

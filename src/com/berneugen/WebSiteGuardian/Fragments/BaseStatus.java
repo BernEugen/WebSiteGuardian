@@ -1,15 +1,11 @@
 package com.berneugen.WebSiteGuardian.Fragments;
 
-import android.app.IntentService;
-import android.content.AsyncTaskLoader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import com.berneugen.WebSiteGuardian.ContentProvider.WebSiteContentProvider;
-import com.berneugen.WebSiteGuardian.CursorAdapterImpl.FragmentCursorAdapter;
+import com.berneugen.WebSiteGuardian.FragmentCursorImplementation.FragmentCursorAdapter;
 import com.berneugen.WebSiteGuardian.DBHelper.WebSiteDB;
 import com.berneugen.WebSiteGuardian.R;
 
@@ -28,7 +24,8 @@ public class BaseStatus extends ListFragment implements LoaderCallbacks<Cursor> 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentCursorAdapter = new FragmentCursorAdapter(getActivity().getApplicationContext(), R.layout.status_list_item, null, FROM, TO, 0);
+        fragmentCursorAdapter = new FragmentCursorAdapter(getActivity().getApplicationContext(),
+                R.layout.status_list_item, null, FROM, TO, 0);
         setListAdapter(fragmentCursorAdapter);
         getLoaderManager().initLoader(0, null, this);
     }
