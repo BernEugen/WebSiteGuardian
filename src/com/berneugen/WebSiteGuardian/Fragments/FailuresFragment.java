@@ -19,8 +19,8 @@ public class FailuresFragment extends BaseStatus {
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] failStatus = new String[] {String .valueOf(StatusesModel.FAILED_STATUS)};
+        String[] okStatus = new String[] {String .valueOf(StatusesModel.OK_STATUS)};
         return new CursorLoader(getActivity().getApplicationContext(), WebSiteContentProvider.CONTENT_URI, null,
-                WebSiteDB.STATUS_COLUMN + " = ?", failStatus, null);
+                WebSiteDB.STATUS_COLUMN + " != ?", okStatus, null);
     }
 }

@@ -14,12 +14,6 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Eugen
- * Date: 03.06.13
- * Time: 0:16
- */
 public class FragmentCursorAdapter extends SimpleCursorAdapter {
 
     private PrettyTime time;
@@ -48,5 +42,4 @@ public class FragmentCursorAdapter extends SimpleCursorAdapter {
 
         return view;
     }
-
 }
