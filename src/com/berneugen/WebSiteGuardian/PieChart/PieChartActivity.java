@@ -67,7 +67,7 @@ public class PieChartActivity extends Activity {
 
     public int getStatusesCount(int status) {
         String[] allStatuses = new String[] {String.valueOf(status)};
-        Cursor cursor = getContentResolver().query(WebSiteContentProvider.CONTENT_URI, null, WebSiteDB.STATUS_COLUMN + "=?", allStatuses, null);
+        Cursor cursor = getContentResolver().query(WebSiteContentProvider.CONTENT_URI, null, WebSiteDB.STATUS_COLUMN + " = ?", allStatuses, null);
         int statusCount = cursor.getCount();
         return statusCount;
     }

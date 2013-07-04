@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class WebSiteDB {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "webSiteDB22.db";
+    public static final String DATABASE_NAME = "webSiteDB23.db";
 
     public static final String TABLE_NAME = "siteStatuses";
     public static final String ID_COLUMN = "_id";
