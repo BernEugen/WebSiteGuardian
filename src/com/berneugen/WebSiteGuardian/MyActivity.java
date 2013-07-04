@@ -24,7 +24,6 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
     private Intent intent;
     private PendingIntent pendingIntent;
     private AlarmManager alarmManager;
-    HIIIII
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
