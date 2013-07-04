@@ -2,6 +2,7 @@ package com.berneugen.WebSiteGuardian;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
 /**
@@ -10,7 +11,7 @@ import android.preference.PreferenceFragment;
  * Date: 27.05.13
  * Time: 22:07
  */
-public class PreferencesActivity extends Activity {
+public class PreferencesActivity extends PreferenceFragment {
 
         @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,5 @@
 package com.berneugen.WebSiteGuardian;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -25,7 +24,6 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
     private Intent intent;
     private PendingIntent pendingIntent;
     private AlarmManager alarmManager;
-    String test;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
