@@ -38,7 +38,14 @@ public class MyActivity extends FragmentActivity implements View.OnClickListener
 
         tabHost.addTab(tabHost.newTabSpec("failures").setIndicator("Failures"),
                 FailuresFragment.class, null);
-asdfajfqaewfqa
+
+
+        intent = new Intent(this, WebSiteService.class);
+        pendingIntent = PendingIntent.getService(this, 0, intent, 0);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_bar, menu);
